@@ -1,4 +1,5 @@
 from sklearn.datasets import make_circles
+from sklearn.datasets import make_blobs
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.svm import SVC
@@ -7,7 +8,9 @@ import time
 from keras.models import Sequential
 from keras.layers import Dense
 
-X,y = make_circles(n_samples = 1000, noise = .2, random_state = 37, factor = 0.3)
+#X,y = make_circles(n_samples = 1000, noise = .2, random_state = 37, factor = 0.3)
+
+X, y = make_blobs(n_samples=1000, centers=2, cluster_std = 1, n_features=2, random_state=0)
 
 np.random.seed(1)
 

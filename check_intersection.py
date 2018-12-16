@@ -34,13 +34,13 @@ def polarTransform2D(X_cart):
 def cart3D(r, theta, phi):
     x = r*np.sin(theta)*np.cos(phi)
     y = r*np.sin(theta)*np.sin(phi)
-    z = r*cos(theta)
+    z = r*np.cos(theta)
     return x,y,z
 
 def polar3D(x,y,z):
     r = np.sqrt(x**2+y**2+z**2)
-    theta = np.arctan2(np.sqrt(x**2+y**2)/z)
-    phi = np.arctan2(y/x)
+    theta = np.arctan2(np.sqrt(x**2+y**2),z)
+    phi = np.arctan2(y,x)
     return r,theta,phi
 
 def polarTransform3D(X_cart):
