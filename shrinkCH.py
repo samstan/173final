@@ -17,18 +17,19 @@ X, y = make_blobs(n_samples=1000, centers=2, cluster_std = 1.5, n_features=3, ra
 # First calculate convex hulls of the data set
 X0 = X[y == 1]
 X0rand = np.copy(X0)
-X1rand = np.copy(X1)
 random.shuffle(X0rand)
 X1 = X[y==0]
 X1rand = np.copy(X1)
 random.shuffle(X1rand)
 index = int(.8*len(X0))
-Xtrain = np.vstack((X0rand[:index, :], X1rand[:index, :]))
+X0train = X0rand[:index, :]
+X1train = X1rand[:index, :]
+Xtrain = np.vstack((X0train, X1train))
 Xtest = np.vstack((X0rand[index:, :], X1rand[index:, :]))
 ytrain = np.append([1]*index, [0]*index)
 ytest = np.append([1] *(len(X0rand) - index),[0] *(len(X1rand) - index) )
-hull0 = ConvexHull(X0)
-hull1 = ConvexHull(X1)
+hull0 = ConvexHull(X0train)
+hull1 = ConvexHull(X1train)
 h0X = hull0.points[hull0.vertices,:]
 h1X = hull1.points[hull1.vertices,:]
 
@@ -158,3 +159,18 @@ ax = plt.axes(projection='3d')
 ax.scatter3D(h0X[:, 0], h0X[:, 1], h0X[:, 2], c= 'black');
 ax.scatter3D(h1X[:, 0], h1X[:, 1], h1X[:, 2], c= 'red');
 plt.show()
+
+
+clf = SVC(kernel='linear')
+clf.fit(Xtrain, ytrain)
+pred = clf.predict(Xtest)
+error = pred - ytest
+print(np.sum(np.abs(error))/len(ytest))
+
+clf = SVC(kernel='linear')
+clf.fit(shTrain, yShTr)
+pred = clf.predict(Xtest)
+error = pred - ytest
+print(np.sum(np.abs(error))/len(ytest))
+
+plot_decision_regions(Xtest, ytest, clf )
