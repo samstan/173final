@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits import mplot3d
 import numpy as np
 
-X, y = make_blobs(n_samples=1000, centers=2, cluster_std = 1, n_features=2, random_state=0)
+'''X, y = make_blobs(n_samples=1000, centers=2, cluster_std = 1, n_features=2, random_state=0)
 
 def plotX2D(X_given,y_given, markerSize):
     x_vals_0 = [x[0] for i,x in enumerate(X_given) if y_given[i]==0]
@@ -15,9 +15,9 @@ def plotX2D(X_given,y_given, markerSize):
     plt.scatter(x_vals_1, y_vals_1, c = 'r', s =markerSize)
     plt.show()
 
-plotX2D(X,y, 10)
+plotX2D(X,y, 10)'''
 
-'''X_, y_ = make_blobs(n_samples=100, centers=2, n_features=3, random_state=0)
+X_, y_ = make_blobs(n_samples=1000, centers=2, n_features=3, random_state=0)
 
 def plotX3D(X_given, y_given):
     ax = plt.axes(projection='3d')
@@ -32,4 +32,4 @@ def plotX3D(X_given, y_given):
     ax.scatter3D(x_vals_1, y_vals_1, z_vals_1, c= 'r');
     plt.show()
 
-plotX3D(X_,y_)'''
+plotX3D(X_,y_)
