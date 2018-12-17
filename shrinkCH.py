@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import cv2 
 from sklearn.datasets import make_moons
 from scipy.spatial import ConvexHull
 from scipy.spatial import ConvexHull
@@ -10,9 +9,10 @@ from sklearn.datasets import make_blobs
 from mpl_toolkits import mplot3d
 from sklearn.svm import SVC
 import random
+from mlxtend.plotting import plot_decision_regions
 
 #X, y = make_moons(1000, noise=.05)
-X, y = make_blobs(n_samples=1000, centers=2, cluster_std = 1.5, n_features=3, random_state=0)
+X, y = make_blobs(n_samples=1000, centers=2, cluster_std = 1.5, n_features=2, random_state=0)
 
 # First calculate convex hulls of the data set
 X0 = X[y == 1]
@@ -147,8 +147,10 @@ def plotX3D(X_given, y_given):
 sh0, sh1 = shrinkCHull(hull0, hull1)
 sh0X = sh0.points[sh0.vertices,:]
 sh1X = sh1.points[sh1.vertices,:]
+shTrain = np.vstack((sh0X,sh1X))
+yShTr = np.append([1]*len(sh0X), [0]*len(sh1X))
 
-#%matplotlib notebook
+'''#%matplotlib notebook
 ax = plt.axes(projection='3d')
 ax.scatter3D(sh0X[:, 0], sh0X[:, 1], sh0X[:, 2], c= 'black');
 ax.scatter3D(sh1X[:, 0], sh1X[:, 1], sh1X[:, 2], c= 'r');
@@ -158,7 +160,7 @@ plt.show()
 ax = plt.axes(projection='3d')
 ax.scatter3D(h0X[:, 0], h0X[:, 1], h0X[:, 2], c= 'black');
 ax.scatter3D(h1X[:, 0], h1X[:, 1], h1X[:, 2], c= 'red');
-plt.show()
+plt.show()'''
 
 
 clf = SVC(kernel='linear')
@@ -167,6 +169,8 @@ pred = clf.predict(Xtest)
 error = pred - ytest
 print(np.sum(np.abs(error))/len(ytest))
 
+plot_decision_regions(Xtest, ytest, clf )
+
 clf = SVC(kernel='linear')
 clf.fit(shTrain, yShTr)
 pred = clf.predict(Xtest)
@@ -174,3 +178,4 @@ error = pred - ytest
 print(np.sum(np.abs(error))/len(ytest))
 
 plot_decision_regions(Xtest, ytest, clf )
+plt.show()
