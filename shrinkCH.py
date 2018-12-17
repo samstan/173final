@@ -12,7 +12,7 @@ import random
 from mlxtend.plotting import plot_decision_regions
 
 #X, y = make_moons(1000, noise=.05)
-X, y = make_blobs(n_samples=1000, centers=2, cluster_std = 1.5, n_features=2, random_state=0)
+X, y = make_blobs(n_samples=10000, centers=2, cluster_std = 1.5, n_features=2, random_state=0)
 
 # First calculate convex hulls of the data set
 X0 = X[y == 1]
@@ -163,19 +163,20 @@ ax.scatter3D(h1X[:, 0], h1X[:, 1], h1X[:, 2], c= 'red');
 plt.show()'''
 
 
-clf = SVC(kernel='linear')
+'''clf = SVC(kernel='linear')
 clf.fit(Xtrain, ytrain)
 pred = clf.predict(Xtest)
 error = pred - ytest
 print(np.sum(np.abs(error))/len(ytest))
 
-plot_decision_regions(Xtest, ytest, clf )
+plot_decision_regions(Xtest, ytest, clf )'''
 
-clf = SVC(kernel='linear')
+clf = SVC(kernel='linear', random_state = 0)
 clf.fit(shTrain, yShTr)
 pred = clf.predict(Xtest)
 error = pred - ytest
 print(np.sum(np.abs(error))/len(ytest))
 
 plot_decision_regions(Xtest, ytest, clf )
+#plot_decision_regions(shTrain, yShTr, clf )
 plt.show()
